@@ -20,6 +20,43 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('adminassets/css/sb-admin-2.min.css') }}" rel="stylesheet">
     @yield('styles')
+
+    @if (app()->currentLocale() == 'ar')
+        <style>
+            body {
+                direction: rtl;
+                text-align: right;
+            }
+
+            .sidebar {
+                padding: 0;
+            }
+
+            .sidebar-dark .nav-item .nav-link {
+                text-align: right;
+            }
+
+            .sidebar .nav-item .nav-link[data-toggle=collapse]::after {
+                float: left;
+                transform: rotate(0);
+            }
+
+            .sidebar .nav-item .nav-link[data-toggle=collapse].collapsed::after {
+                float: left;
+                transform: rotate(180deg);
+            }
+
+            .dropdown-item {
+                text-align: right;
+            }
+
+            .ml-auto,
+            .mx-auto {
+                margin-right: auto !important;
+                margin-left: 0 !important;
+            }
+        </style>
+    @endif
 </head>
 
 <body id="page-top">
@@ -45,7 +82,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>{{ __('site.dashboard') }}</span></a>
             </li>
 
 
@@ -58,7 +95,7 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCatogorie"
                     aria-expanded="true" aria-controls="collapseCatogorie">
                     <i class="fas fa-fw fa-tags"></i>
-                    <span>Categories</span>
+                    <span>{{ __('site.categories') }}</span>
                 </a>
                 <div id="collapseCatogorie" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
@@ -76,7 +113,7 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducte"
                     aria-expanded="true" aria-controls="collapseProducte">
                     <i class="fas fa-fw fa-heart"></i>
-                    <span>Products</span>
+                    <span>{{ __('site.products') }}</span>
                 </a>
                 <div id="collapseProducte" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
@@ -93,7 +130,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-cart-plus"></i>
-                    <span>Orders</span></a>
+                    <span>{{ __('site.orders') }}</span></a>
             </li>
 
             <!-- Divider -->
@@ -103,7 +140,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-money-bill"></i>
-                    <span>Payments</span></a>
+                    <span>{{ __('site.payments') }}</span></a>
             </li>
 
             <!-- Divider -->
@@ -113,7 +150,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-users"></i>
-                    <span>Users</span></a>
+                    <span>{{ __('site.users') }}</span></a>
             </li>
 
             <!-- Divider -->
@@ -143,6 +180,64 @@
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Nav Item - Alerts -->
+
+                        <!-- Nav Item - Language -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-language mx-1"></i>
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small">Languages({{ app()->currentLocale() }})</span>
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}"
+                                        href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                        <img width="15" class="mx-1"
+                                            src="{{ asset('adminassets/img/' . $properties['flag']) }}"
+                                            alt="">
+                                        {{ $properties['native'] }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        </li>
+
+                        {{-- @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            <li class="nav-item">
+                                <a class="nav-link" rel="alternate" hreflang="{{ $localeCode }}"
+                                    href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+
+                                    {{-- {{ $properties['native'] }} --}}
+                        {{-- or --}}
+                        {{-- {{ $localeCode }} --}}
+                        {{-- or --}}
+                        {{-- @if ($localeCode == 'en')
+                                        <img width="30" src="{{ asset('adminassets/img/uk.png') }}"
+                                            alt="">
+                                    @endif
+                                    @if ($localeCode == 'ar')
+                                        <img width="30" src="{{ asset('adminassets/img/ps.png') }}"
+                                            alt="">
+                                    @endif --}}
+                        {{-- or --}}
+                        {{-- @php
+                                        $flag = 'uk.png';
+                                    @endphp
+                                    @if ($localeCode == 'ar')
+                                        @php
+                                            $flag = 'ps.png';
+                                        @endphp
+                                    @endif
+                                    <img width="30" src="{{ asset('adminassets/img/' . $flag) }}" alt=""> --}}
+                        {{-- or
+                                    {{-- <img width="30" src="{{ asset('adminassets/img/' . $properties['flag']) }}"
+                                        alt="">
+                                </a>
+                            </li>
+                        @endforeach --}}
+
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
