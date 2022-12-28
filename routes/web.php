@@ -25,11 +25,17 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 Route::prefix(LaravelLocalization::setLocale())->group(function () {
 
 
-    Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::prefix('admin')->name('admin.')->middleware('auth', 'user_type', 'verified')->group(function () {
+        // Route::get('/{local?}', [AdminController::class, 'index'])->name('index');
 
-        Route::get('/{local?}', [AdminController::class, 'index'])->name('index');
+        Route::get('/', [AdminController::class, 'index'])->name('index');
     });
 });
-Auth::routes(); // login , register
+
+
+Auth::routes(['verify' => true]); // login , register
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::view('no-access', 'no_access');
