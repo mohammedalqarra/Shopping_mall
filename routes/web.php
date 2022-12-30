@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\categoryController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -29,13 +30,21 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
         // Route::get('/{local?}', [AdminController::class, 'index'])->name('index');
 
         Route::get('/', [AdminController::class, 'index'])->name('index');
+
+        Route::resource('categories', categoryController::class);
     });
 });
 
 
 Auth::routes(['verify' => true]); // login , register
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 Route::view('no-access', 'no_access');
+
+//site Routes
+
+Route::get('/', function () {
+    return 'home';
+})->name('site.index');

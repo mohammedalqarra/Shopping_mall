@@ -659,7 +659,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form__row">
+                    {{-- <div class="form__row">
                         <div class="input-checkbox">
                             <div class="input-checkbox__container">
                                 <input checked="" class="input-checkbox__field" id="agree" required=""
@@ -668,7 +668,7 @@
                                     for="agree">I agree with terms and conditions</label>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form__row">
                         <div class="component component--primary form__button">
                             <button class="btn btn--regular" id="sign-up-button" tabindex="0">Sign
