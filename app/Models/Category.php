@@ -9,6 +9,13 @@ class Category extends Model
 {
     use HasFactory;
 
+    // protected $guarded = []; // الحقول الممنوعة
+    protected $fillable = [
+        'name',
+        'image',
+        'parent_id',
+    ];
+
     public function parent()
     {
         return $this->belongsTo(Category::class, 'parent_id')->withDefault(); // في حال حذفت العنصر إلي معه ما يعطيني error
