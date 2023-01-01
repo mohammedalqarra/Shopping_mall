@@ -40,9 +40,11 @@
                 <tr>
                     <td>{{ $category->id }}</td>
                     {{-- <td>{{ $category->name }}</td> --}}
-                    <td>{{ json_decode($category->name, true)[app()->currentLocale()] }}</td>
+                    {{-- <td>{{ json_decode($category->name, true)[app()->currentLocale()] }}</td> --}}
+                    <td>{{ $category->trans_name }}</td>
                     <td><img width="80" src="{{ asset('uploads/categories/' . $category->image) }}"></td>
-                    <td>{{ $category->parent_id }}</td>
+                    {{-- <td>{{ $category->parent_id }}</td> --}}
+                    <td>{{ $category->parent->trans_name }}</td>
                     <th>{{ $category->created_at ? $category->created_at->diffForHumans() : '' }}</th>
                     <td>
                         <a class="btn btn-sm btn-primary" href="{{ route('admin.categories.edit', $category->id) }}"><i

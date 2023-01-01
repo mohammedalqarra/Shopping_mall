@@ -140,12 +140,18 @@ class categoryController extends Controller
             $request->file('image')->move(public_path('uploads/categories'), $img_name);
         }
 
+        // convert name to json
+
+        $name = json_encode([
+            'en' => $request->name_en,
+            'ar' => $request->name_ar,
+        ], JSON_UNESCAPED_UNICODE);
 
         // Insert To DataBase
 
         $category->update([
-            'name' => $request->name_en . ' ' . $request->name_ar,
-            // 'name' => $name,
+            // 'name' => $request->name_en . ' ' . $request->name_ar,
+            'name' => $name,
             'image' =>  $img_name,
             'parent_id' => $request->parent_id,
         ]);

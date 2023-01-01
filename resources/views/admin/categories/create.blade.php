@@ -36,7 +36,8 @@
             <select name="parent_id" class="form-control">
                 <option value="">Select</option>
                 @foreach ($categories as $Category)
-                    <option value="{{ $Category->id }}">{{ $Category->name }}</option>
+                    {{-- <option value="{{ $Category->id }}">{{ $Category->name }}</option> --}}
+                    <option value="{{ $Category->id }}">{{ $Category->trans_name }}</option>
                 @endforeach
             </select>
         </div>
