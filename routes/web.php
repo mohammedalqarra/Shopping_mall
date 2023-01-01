@@ -38,6 +38,8 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
 
 Auth::routes(['verify' => true]); // login , register
 
+// Auth::routes(['verify' => true, 'register' => false]); // login , register
+
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 

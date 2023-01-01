@@ -33,14 +33,14 @@
                 <th>Parent</th>
                 <th>Created At</th>
                 <th>Actions</th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach ($categories as $category)
                 <tr>
                     <td>{{ $category->id }}</td>
-                    <td>{{ $category->name }}</td>
+                    {{-- <td>{{ $category->name }}</td> --}}
+                    <td>{{ json_decode($category->name, true)[app()->currentLocale()] }}</td>
                     <td><img width="80" src="{{ asset('uploads/categories/' . $category->image) }}"></td>
                     <td>{{ $category->parent_id }}</td>
                     <th>{{ $category->created_at ? $category->created_at->diffForHumans() : '' }}</th>
