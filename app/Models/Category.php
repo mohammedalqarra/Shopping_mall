@@ -43,18 +43,18 @@ class Category extends Model
         }
         return $this->name;
     }
-    // public function getNameArAttribute()
-    // {
-    //     if ($this->name) {
-    //         return json_decode($this->name, true)['ar'];
-    //     }
-    //     return $this->name;
-    // }
-
-    protected function NameAr(): Attribute
+    public function getNameArAttribute()
     {
-        return Attribute::make(
-            get: fn () => ucfirst(json_decode($this->name, true)['ar']),
-        );
+        if ($this->name) {
+            return json_decode($this->name, true)['ar'];
+        }
+        return $this->name;
     }
+    // laravel 9
+    // protected function NameAr(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn () => ucfirst(json_decode($this->name, true)['ar']),
+    //     );
+    // }
 }
