@@ -39,6 +39,7 @@
             @foreach ($categories as $category)
                 <tr>
                     <td>{{ $category->id }}</td>
+                    {{-- json_decode($category->name, true) هل احول ال array ل شكل افتراضي  // associative --}}
                     {{-- <td>{{ $category->name }}</td> --}}
                     {{-- <td>{{ json_decode($category->name, true)[app()->currentLocale()] }}</td> --}}
                     <td>{{ $category->trans_name }}</td>

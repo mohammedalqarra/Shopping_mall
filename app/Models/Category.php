@@ -29,6 +29,7 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+    // laravel 8
     public function getTransNameAttribute()
     {
         if ($this->name) {
@@ -36,7 +37,7 @@ class Category extends Model
         }
         return $this->name;
     }
-    public function getNameEnAttribute()
+    public function getNameEnAttribute() // أسم النهائي
     {
         if ($this->name) {
             return json_decode($this->name, true)['en'];
@@ -54,7 +55,7 @@ class Category extends Model
     // protected function NameAr(): Attribute
     // {
     //     return Attribute::make(
-    //         get: fn () => ucfirst(json_decode($this->name, true)['ar']),
+    //         get: fn () => json_decode($this->name, true)['ar']
     //     );
     // }
 }
