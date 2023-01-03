@@ -57,10 +57,13 @@
               <i class="fas fa-fw fa-heart"></i>
               <span>{{ __('site.products') }}</span>
           </a>
-          <div id="collapseProducte" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div id="collapseProducte" class="collapse {{ str_contains(request()->url(), 'products') ? 'show' : '' }}"
+              aria-labelledby="headingTwo" data-parent="#accordionSidebar">
               <div class="bg-white py-2 collapse-inner rounded">
-                  <a class="collapse-item" href="{{ route('admin.categories.index') }}">ALL Categories</a>
-                  <a class="collapse-item" href="{{ route('admin.categories.create') }}">Add New categories</a>
+                  <a class="collapse-item {{ request()->routeIs('admin.products.index') ? 'active' : '' }}"
+                      href="{{ route('admin.products.index') }}">ALL products</a>
+                  <a class="collapse-item {{ request()->routeIs('admin.products.create') ? 'active' : '' }}"
+                      href="{{ route('admin.products.create') }}">Add New products</a>
               </div>
           </div>
       </li>

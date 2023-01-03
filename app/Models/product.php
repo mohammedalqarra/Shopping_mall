@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\Trans;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class product extends Model
 {
-    use HasFactory;
+    use HasFactory, Trans;
 
     public function category()
     {
@@ -28,6 +29,10 @@ class product extends Model
     public function order_items()
     {
         return $this->hasMany(OrderItem::class);
+    }
+    public function images()
+    {
+        return $this->hasMany(Image::class);
     }
     // public function getTransNameAttribute()
     // {
