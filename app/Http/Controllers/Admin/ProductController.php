@@ -52,12 +52,38 @@ class ProductController extends Controller
             'quantity' => 'required',
             'category_id' => 'required',
         ]);
-        // uploads file
+        // uploads Album to images table if exists
+
+        //    $img = $request->file('image');
+        $img_name = rand() . $request->file('image')->getClientOriginalName();
+        $request->file('image')->move(public_path('uploads/products'), $img_name);
+
+        // convert name  and content to json
+
+        $name = json_encode([
+            'en' => $request->name_en,
+            'ar' => $request->name_ar,
+        ], JSON_UNESCAPED_UNICODE);
+
+
+        $content = json_encode([
+            'en' => $request->content_en,
+            'ar' => $request->content_ar,
+        ], JSON_UNESCAPED_UNICODE);
 
         // Insert To DataBase
 
+        $product = Product::create([
+            'name' => $name,
+            'image' => $img_name,
+            'content' => $content,
+            'price' => $request->price,
+            'sale_price' => $request->sale_price,
+            'quantity' => $request->quantity,
+            'category_id' => $request->category_id,
+        ]);
         //Redirect
-
+        return redirect()->route('admin.products.index')->with('msg', 'Products create successfully')->with('type', 'success');
     }
 
     /**

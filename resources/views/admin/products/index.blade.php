@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', 'Products | ' . env('APP_NAME'))
+@section('title', 'Categories | ' . env('APP_NAME'))
 
 @section('content')
 
@@ -26,12 +26,13 @@
 
     <table class="table table-bordered">
         <thead>
+
             <tr class="bg-dark text-white">
                 <th>ID</th>
                 <th>Nmae</th>
                 <th>Image</th>
                 <th>price</th>
-                <th>Sale Price</th>
+                <th> Sale Price</th>
                 <th>Quantity</th>
                 <th>Category</th>
                 <th>Created At</th>
@@ -42,17 +43,17 @@
             @foreach ($products as $product)
                 <tr>
                     <td>{{ $product->id }}</td>
-                    <td><img width="80" src="{{ asset('uploads/categories/' . $product->image) }}"></td>
+                    <td>{{ $product->trans_name }}</td>
+                    <td><img width="80" src="{{ asset('uploads/products/' . $product->image) }}"></td>
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->sale_price }}</td>
                     <td>{{ $product->quantity }}</td>
                     <td>{{ $product->category_id }}</td>
                     <th>{{ $product->created_at ? $product->created_at->diffForHumans() : '' }}</th>
                     <td>
-                        <a class="btn btn-sm btn-primary" href="{{ route('admin.categories.edit', $product->id) }}"><i
+                        <a class="btn btn-sm btn-primary" href="{{ route('admin.products.edit', $product->id) }}"><i
                                 class="fa fa-edit"></i></a>
-                        <form class="d-inline" action="{{ route('admin.categories.destroy', $product->id) }}"
-                            method="POST">
+                        <form class="d-inline" action="{{ route('admin.products.destroy', $product->id) }}" method="POST">
                             @csrf
                             @method('delete')
                             <button class="btn btn-sm btn-danger"

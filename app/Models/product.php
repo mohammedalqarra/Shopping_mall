@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class product extends Model
 {
     use HasFactory, Trans;
+    protected $guarded = [];
 
     public function category()
     {
@@ -30,7 +31,7 @@ class product extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
-    public function images()
+    public function album()
     {
         return $this->hasMany(Image::class);
     }
