@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Image;
 use App\Models\product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -52,14 +53,13 @@ class ProductController extends Controller
             'quantity' => 'required',
             'category_id' => 'required',
         ]);
-        // uploads Album to images table if exists
 
         //    $img = $request->file('image');
         $img_name = rand() . $request->file('image')->getClientOriginalName();
         $request->file('image')->move(public_path('uploads/products'), $img_name);
 
-        // convert name  and content to json
 
+        // convert name  and content to json
         $name = json_encode([
             'en' => $request->name_en,
             'ar' => $request->name_ar,
@@ -82,6 +82,19 @@ class ProductController extends Controller
             'quantity' => $request->quantity,
             'category_id' => $request->category_id,
         ]);
+
+
+        // uploads Album to images table if exists
+        if ($request->has('album')) {
+            foreach ($request->album as $item) {
+                $img_name = rand() . $item->getClientOriginalName();
+                $item->move(public_path('uploads/products'), $img_name);
+                Image::create([
+                    'path' => $img_name,
+                    'product_id' => $product->id,
+                ]);
+            }
+        }
         //Redirect
         return redirect()->route('admin.products.index')->with('msg', 'Products create successfully')->with('type', 'success');
     }
