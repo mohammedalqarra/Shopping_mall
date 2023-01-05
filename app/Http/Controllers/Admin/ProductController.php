@@ -7,6 +7,7 @@ use App\Models\product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -31,7 +32,8 @@ class ProductController extends Controller
     {
         //
         $categories = Category::all();
-        return view('admin.products.create', compact('categories'));
+        $product = new Product();
+        return view('admin.products.create', compact('categories', 'product'));
     }
 
     /**
@@ -119,6 +121,9 @@ class ProductController extends Controller
     public function edit($id)
     {
         //
+        $categories = Category::all();
+        $product = Product::findOrFail($id);
+        return view('admin.products.edit', compact('categories', 'product'));
     }
 
     /**
@@ -141,6 +146,14 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        //    Category::destroy($id);
+        $product = Product::findOrFail($id);
+        File::delete(public_path('uploads/products/' . $product->image));
+        //  Category::where('parent_id', $product->id)->update(['parent_id' => null]);
+        $product->album()->delete();
+        $product->delete();
+        //   return redirect()->route('admin.categories.index')->with('fail', 'Category deleted successfully');
+        return redirect()->route('admin.products.index')->with('msg', 'products delete successfully')->with('type', 'danger');
     }
 }

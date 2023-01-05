@@ -177,6 +177,6 @@ class categoryController extends Controller
         $category->children()->update(['parent_id' => null]);
         $category->delete();
         //   return redirect()->route('admin.categories.index')->with('fail', 'Category deleted successfully');
-        return redirect()->route('admin.categories.index')->with('msg', 'Category update successfully')->with('type', 'danger');
+        return redirect()->route('admin.categories.index')->with('msg', 'Category delete successfully')->with('type', 'danger');
     }
 }
