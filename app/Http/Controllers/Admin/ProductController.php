@@ -135,7 +135,64 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //validate Data
+        $request->validate([
+            'name_en' => 'required',
+            'name_ar' => 'required',
+            'content_en' => 'required',
+            'content_ar' => 'required',
+            'price' => 'required',
+            'quantity' => 'required',
+            'category_id' => 'required',
+        ]);
+
+        //    $img = $request->file('image');
+        $product = Product::findOrFail($id);
+        $img_name   = $product->image;
+        if ($request->hasFile('image')) {
+            $img_name = rand() . $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('uploads/products'), $img_name);
+        }
+
+
+        // convert name  and content to json
+        $name = json_encode([
+            'en' => $request->name_en,
+            'ar' => $request->name_ar,
+        ], JSON_UNESCAPED_UNICODE);
+
+
+        $content = json_encode([
+            'en' => $request->content_en,
+            'ar' => $request->content_ar,
+        ], JSON_UNESCAPED_UNICODE);
+
+        // Insert To DataBase
+
+        $product->update([
+            'name' => $name,
+            'image' => $img_name,
+            'content' => $content,
+            'price' => $request->price,
+            'sale_price' => $request->sale_price,
+            'quantity' => $request->quantity,
+            'category_id' => $request->category_id,
+        ]);
+
+
+        // uploads Album to images table if exists
+        if ($request->has('album')) {
+            foreach ($request->album as $item) {
+                $img_name = rand() . $item->getClientOriginalName();
+                $item->move(public_path('uploads/products'), $img_name);
+                Image::create([
+                    'path' => $img_name,
+                    'product_id' => $product->id,
+                ]);
+            }
+        }
+        //Redirect
+        return redirect()->route('admin.products.index')->with('msg', 'Products update successfully')->with('type', 'success');
     }
 
     /**
@@ -155,5 +212,11 @@ class ProductController extends Controller
         $product->delete();
         //   return redirect()->route('admin.categories.index')->with('fail', 'Category deleted successfully');
         return redirect()->route('admin.products.index')->with('msg', 'products delete successfully')->with('type', 'danger');
+    }
+
+    public function delete_image($id)
+    {
+        Image::destroy($id);
+        return redirect()->back();
     }
 }
