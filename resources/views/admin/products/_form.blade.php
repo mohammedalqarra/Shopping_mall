@@ -67,7 +67,7 @@
                 <option value="">Select</option>
                 @foreach ($categories as $item)
                     {{-- <option value="{{ $Category->id }}">{{ $Category->name }}</option> --}}
-                    <option value="{{ $item->id }}">{{ $item->trans_name }}</option>
+                    <option @selected($product->category_id == $item->id) value="{{ $item->id }}">{{ $item->trans_name }}</option>
                 @endforeach
             </select>
         </div>
