@@ -48,7 +48,8 @@
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->sale_price }}</td>
                     <td>{{ $product->quantity }}</td>
-                    <td>{{ $product->category_id }}</td>
+                    {{-- <td>{{ $product->category_id }}</td> --}}
+                    <td>{{ $product->category->trans_name }}</td>
                     <th>{{ $product->created_at ? $product->created_at->diffForHumans() : '' }}</th>
                     <td>
                         <a class="btn btn-sm btn-primary" href="{{ route('admin.products.edit', $product->id) }}"><i
