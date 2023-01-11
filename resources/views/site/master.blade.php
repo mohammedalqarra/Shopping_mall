@@ -54,14 +54,20 @@
             <div class="row">
                 <div class="col-md-4 col-xs-12 col-sm-4">
                     <div class="contact-number">
-                        <i class="tf-ion-ios-telephone"></i>
-                        <span>0129- 12323-123123</span>
+                        <a href="tel:+970567686852">
+                            <i class="tf-ion-ios-telephone"></i>
+                            <span>+970567686852</span>
+                        </a>
+                        {{-- <a href="mohammedalqarra2915@gmail.com">
+                            <i class="tf-ion-ios-email"></i>
+                            <span>mohammedalqarra2915@gmail.com</span>
+                        </a> --}}
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-12 col-sm-4">
                     <!-- Site Logo -->
                     <div class="logo text-center">
-                        <a href="index.html">
+                        <a href="{{ route('site.index') }}">
                             <!-- replace logo here -->
                             <svg width="135px" height="29px" viewBox="0 0 155 29" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -160,7 +166,7 @@
         </div>
     </section><!-- End Top Header Bar -->
 
-    @yield('content')
+
     <!-- Main Menu Section -->
     <section class="menu">
         <nav class="navbar navigation">
@@ -316,7 +322,7 @@
         </nav>
     </section>
 
-
+    @yield('content')
 
     <footer class="footer section text-center">
         <div class="container">
