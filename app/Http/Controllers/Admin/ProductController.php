@@ -19,6 +19,13 @@ class ProductController extends Controller
     public function index()
     {
         //
+        if (request()->has('q')) {
+            $products = Product::where('name', 'like', '%' . request()->q . '%')->orderBy('id', 'desc')->paginate(10);
+        } else {
+            $products = Product::orderByDesc('id')->paginate(10);
+        }
+
+
         $products = Product::with('category')->orderByDesc('id')->paginate(5);
         return view('admin.products.index', compact('products'));
     }
