@@ -31,13 +31,13 @@
                     <td>{{ $user->email }}</td>
                     <th>{{ $user->created_at ? $user->created_at->diffForHumans() : '' }}</th>
                     <td>
-
+                        <button class="btn btn-sm btn-danger btn-delete"><i class="fas fa-trash"></i></button>
                         <form class="d-inline" action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
                             @csrf
                             @method('delete')
-                            <button class="btn btn-sm btn-danger"
+                            {{-- <button class="btn btn-sm btn-danger" />// لانوا ال form هنا بيؤسل على السريع فالأفضل عشان يعمل alert بخرجه خارج الكودد
                                 onclick="return confirm ('Are you sure you want to delete this')"><i
-                                    class="fas fa-trash"></i></button>
+                                    class="fas fa-trash"></i></button> --}}
                         </form>
                     </td>
                 </tr>
