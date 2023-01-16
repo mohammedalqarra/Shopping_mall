@@ -152,9 +152,11 @@
 
                         <!-- Languages -->
                         <li class="commonSelect">
-                            <select class="form-control">
+                            <select class="form-control" onchange="window.location.href=this.value">
                                 @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                    <option>{{ $properties['native'] }}</option>
+                                    <option
+                                        value="{{ LaravelLocalization::getLocalizedURl($localeCode, null, [], true) }}">
+                                        {{ $properties['native'] }}</option>
                                 @endforeach
                             </select>
                         </li><!-- / Languages -->
