@@ -25,7 +25,7 @@ class ProductController extends Controller
         if (request()->has('q')) {
             $products = Product::where('name', 'like', '%' . request()->q . '%')->orderBy('id', 'desc')->paginate(10);
         } else {
-            $products = Product::orderByDesc('id')->paginate(10);
+            $products = Product::where('name', 'like', '%' . request()->q . '%')->with('category')->orderByDesc('id')->paginate(10);
         }
 
         // $products = Product::where('name', 'like', '%' . request()->q . '%')->with('category')->orderByDesc('id')->paginate(10);

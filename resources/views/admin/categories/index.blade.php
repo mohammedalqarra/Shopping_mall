@@ -50,18 +50,47 @@
                     <td>
                         <a class="btn btn-sm btn-primary" href="{{ route('admin.categories.edit', $category->id) }}"><i
                                 class="fa fa-edit"></i></a>
+                        {{-- confirm delte --}}
+                        <button class="btn btn-sm btn-danger btn-delete"><i class="fas fa-trash"></i></button>
                         <form class="d-inline" action="{{ route('admin.categories.destroy', $category->id) }}"
                             method="POST">
                             @csrf
                             @method('delete')
-                            <button class="btn btn-sm btn-danger"
-                                onclick="return confirm ('Are you sure you want to delete this')"><i
-                                    class="fas fa-trash"></i></button>
+
                         </form>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-    {{ $categories->links() }}
+    {{-- {{ $categories->links() }} --}}
+    {{ $categories->appends($_GET)->links() }}
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+    <script>
+        $('.btn-delete').on('click', function() {
+
+            let form = $(this).next('form');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        });
+    </script>
 @stop
