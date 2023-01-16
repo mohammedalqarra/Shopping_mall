@@ -58,7 +58,7 @@
                             <i class="tf-ion-ios-telephone"></i>
                             <span>+970567686852</span>
                         </a>
-                        {{-- <a href="mohammedalqarra2915@gmail.com">
+                        {{-- <a href="mailto:mohammedalqarra2915@gmail.com">
                             <i class="tf-ion-ios-email"></i>
                             <span>mohammedalqarra2915@gmail.com</span>
                         </a> --}}
@@ -153,10 +153,9 @@
                         <!-- Languages -->
                         <li class="commonSelect">
                             <select class="form-control">
-                                <option>EN</option>
-                                <option>DE</option>
-                                <option>FR</option>
-                                <option>ES</option>
+                                @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    <option>{{ $properties['native'] }}</option>
+                                @endforeach
                             </select>
                         </li><!-- / Languages -->
 
