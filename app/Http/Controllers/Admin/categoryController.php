@@ -17,7 +17,12 @@ class categoryController extends Controller
     public function index()
     {
         //
-        $categories = Category::with('parent')->orderByDesc('id')->paginate(5);
+        if (request()->has('category')) {
+            $categories = Category::where('name', 'like', '%' . request()->category . '%')->orderBy('id', 'desc')->paginate(10);
+        } else {
+            $categories = Category::where('name', 'like', '%' . request()->q . '%')->with('parent')->orderByDesc('id')->paginate(10);
+        }
+        // $categories = Category::with('parent')->orderByDesc('id')->paginate(5);
         return view('admin.categories.index', compact('categories'));
     }
 

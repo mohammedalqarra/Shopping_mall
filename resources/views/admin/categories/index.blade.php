@@ -23,7 +23,13 @@
             {{ session('msg') }}
         </div>
     @endif
-
+    <form action="{{ route('admin.categories.index') }}" method="get">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search here..." name="category"
+                value="{{ request()->category }}">
+            <button class="btn btn-dark px-5" id="button-addon2">Search</button>
+        </div>
+    </form>
     <table class="table table-bordered">
         <thead>
             <tr class="bg-dark text-white">
