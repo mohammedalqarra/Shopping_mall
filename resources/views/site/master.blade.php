@@ -1,3 +1,7 @@
+{{-- @php
+    use App\Models\Category;
+@endphp --}}
+
 <!DOCTYPE html>
 
 <!--
@@ -206,11 +210,9 @@
                                 aria-expanded="false">CATEGORIES
                                 <span class="tf-ion-ios-arrow-down"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                                <li><a href="blog-full-width.html">Blog Full Width</a></li>
-                                <li><a href="blog-grid.html">Blog 2 Columns</a></li>
-                                <li><a href="blog-single.html">Blog Single</a></li>
+                                @foreach (\App\Models\Category::all() as $item)
+                                    <li><a href="blog-left-sidebar.html">{{ $item->trans_name }}</a></li>
+                                @endforeach
                             </ul>
                         </li><!-- / CATEGORIES -->
                         <li class="dropdown ">
