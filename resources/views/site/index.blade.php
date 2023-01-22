@@ -33,7 +33,7 @@
                 <div class="col-md-6">
                     @isset($categories[0])
                         <div class="category-box">
-                            <a href="#!">
+                            <a href="{{ route('site.category', $categories[0]->id) }}">
                                 <img src="{{ asset('uploads/categories/' . $categories[0]->image) }}" alt="" />
                                 <div class="content">
                                     <h3>{{ $categories[0]->trans_name }}</h3>
@@ -44,7 +44,7 @@
                     @endisset
                     @isset($categories[1])
                         <div class="category-box">
-                            <a href="#!">
+                            <a href="{{ route('site.category', $categories[1]->id) }}">
                                 <img src="{{ asset('uploads/categories/' . $categories[1]->image) }}" alt="" />
                                 <div class="content">
                                     <h3>{{ $categories[1]->trans_name }}</h3>
@@ -56,7 +56,7 @@
                 <div class="col-md-6">
                     @isset($categories[2])
                         <div class="category-box category-box-2">
-                            <a href="#!">
+                            <a href="{{ route('site.category', $categories[2]->id) }}">
                                 <img src="{{ asset('uploads/categories/' . $categories[2]->image) }}" alt="" />
                                 <div class="content">
                                     <h3>{{ $categories[2]->trans_name }}</h3>
@@ -365,8 +365,8 @@
 
 
     <!--
-                                                                                                                Start Call To Action
-                                                                                                                ==================================== -->
+                                                                                                                                Start Call To Action
+                                                                                                                                ==================================== -->
     <section class="call-to-action bg-gray section">
         <div class="container">
             <div class="row">

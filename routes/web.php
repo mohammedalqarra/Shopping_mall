@@ -64,4 +64,5 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
     Route::get('/about', [SiteController::class, 'about'])->name('site.about');
     Route::get('/shop', [SiteController::class, 'shop'])->name('site.shop');
     Route::get('/contact', [SiteController::class, 'contact'])->name('site.contact');
+    Route::get('/category/{id}', [SiteController::class, 'category'])->name('site.category');
 });
