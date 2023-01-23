@@ -79,32 +79,7 @@
             <div class="row">
                 @foreach ($products_latest as $product)
                     <div class="col-md-4">
-                        <div class="product-item">
-                            <div class="product-thumb">
-                                <span class="bage">Sale</span>
-                                <img class="img-responsive" src="{{ asset('uploads/products/' . $product->image) }}"
-                                    alt="product-img" />
-                                {{-- <div class="preview-meta">
-                                    <ul>
-                                        <li>
-                                            <span data-toggle="modal" data-target="#product-modal">
-                                                <i class="tf-ion-ios-search-strong"></i>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <a href="#!"><i class="tf-ion-ios-heart"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#!"><i class="tf-ion-android-cart"></i></a>
-                                        </li>
-                                    </ul>
-                                </div> --}}
-                            </div>
-                            <div class="product-content">
-                                <h4><a href="product-single.html">{{ $product->trans_name }}</a></h4>
-                                <p class="price">{{ $product->price }}</p>
-                            </div>
-                        </div>
+                        @include('site.includes.product')
                     </div>
                 @endforeach
                 <!-- Modal -->
@@ -148,8 +123,8 @@
 
 
     <!--
-                                                                                                                                                                    Start Call To Action
-                                                                                                                                                                    ==================================== -->
+                                                                                                                                                                                Start Call To Action
+                                                                                                                                                                                ==================================== -->
     <section class="call-to-action bg-gray section">
         <div class="container">
             <div class="row">
