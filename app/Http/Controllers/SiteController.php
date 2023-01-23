@@ -15,6 +15,9 @@ class SiteController extends Controller
 
         $categories =  Category::orderByDesc('id')->take(3)->get();
 
-        return  view('site.index', compact('products_slider', 'categories'));
+        $products_latest =  product::orderByDesc('id')->take(9)->offset(3)->get();
+
+
+        return  view('site.index', compact('products_slider', 'categories', 'products_latest'));
     }
 }
