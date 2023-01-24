@@ -1,6 +1,6 @@
 @extends('site.master')
 
-@section('title', 'Home | ' . config('app.name'))
+@section('title', 'Contact | ' . config('app.name'))
 
 @section('content')
 
@@ -411,7 +411,8 @@
                                                             draggable="false"
                                                             style="position: absolute; left: 0px; top: 0px; width: 66px; height: 26px; user-select: none; border: 0px; padding: 0px; margin: 0px;">
                                                     </div>
-                                                </a></div>
+                                                </a>
+                                            </div>
                                         </div>
                                         <div></div>
                                         <div>
@@ -432,7 +433,8 @@
                                                             <button draggable="false" aria-label="Keyboard shortcuts"
                                                                 title="Keyboard shortcuts" type="button"
                                                                 style="background: none; display: inline-block; border: 0px; margin: 0px; padding: 0px; text-transform: none; appearance: none; position: relative; cursor: pointer; user-select: none; color: rgb(0, 0, 0); font-family: inherit; line-height: inherit;">Keyboard
-                                                                shortcuts</button></div>
+                                                                shortcuts</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="gmnoprint" style="z-index: 1000001;">
@@ -451,7 +453,8 @@
                                                                 title="Map Data" type="button"
                                                                 style="background: none; border: 0px; margin: 0px; padding: 0px; text-transform: none; appearance: none; position: relative; cursor: pointer; user-select: none; color: rgb(0, 0, 0); font-family: inherit; line-height: inherit; display: none;">Map
                                                                 Data</button><span style="">Map data ©2023
-                                                                Google</span></div>
+                                                                Google</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="gmnoscreen">
@@ -512,7 +515,8 @@
                                                         <a href="https://www.google.com/intl/en-UG_US/help/terms_maps.html"
                                                             target="_blank" rel="noopener"
                                                             style="text-decoration: none; cursor: pointer; color: rgb(0, 0, 0);">Terms
-                                                            of Use</a></div>
+                                                            of Use</a>
+                                                    </div>
                                                 </div>
                                                 <div draggable="false" class="gm-style-cc"
                                                     style="user-select: none; position: relative; height: 14px; line-height: 14px; display: none;">
@@ -530,7 +534,8 @@
                                                             dir="ltr"
                                                             href="https://www.google.com/maps/@51.507351,-0.127758,17z/data=!10m1!1e1!12b1?source=apiv3&amp;rapsrc=apiv3"
                                                             style="font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(0, 0, 0); text-decoration: none; position: relative;">Report
-                                                            a map error</a></div>
+                                                            a map error</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

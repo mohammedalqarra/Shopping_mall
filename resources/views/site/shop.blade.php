@@ -1,6 +1,6 @@
 @extends('site.master')
 
-@section('title', 'Home | ' . config('app.name'))
+@section('title', 'shop | ' . config('app.name'))
 
 @section('content')
 
