@@ -87,6 +87,8 @@ class ProductController extends Controller
 
         $slugCount = Product::where('slug', 'like', '%' . Str::slug($request->name_en) . '%')->count();
 
+        $slug = Str::Slug($request->name_en);
+
         if ($slugCount) {
             $slug = Str::Slug($request->name_en) . '_' . $slugCount;
         }
