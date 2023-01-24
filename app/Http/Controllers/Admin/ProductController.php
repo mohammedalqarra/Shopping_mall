@@ -85,9 +85,17 @@ class ProductController extends Controller
 
         // Insert To DataBase
 
+        $slugCount = Product::where('slug', Str::slug($request->name_en))->count();
+
+        if ($slugCount) {
+            $slug = Str::Slug($request->name_en) . '_' . $slugCount;
+        }
+
         $product = Product::create([
             'name' => $name,
-            'slug' => Str::slug($request->name_en),
+            'slug' => $slug,
+            // 'slug' => Str::slug($request->name_en),
+            //  'slug' => Str::slug($request->name_en).rand(), // لما بدي اضيف أي منتج نفس الأسم بس ال id  تختلف
             'image' => $img_name,
             'content' => $content,
             'price' => $request->price,
