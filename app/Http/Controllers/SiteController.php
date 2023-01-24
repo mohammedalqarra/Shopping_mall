@@ -46,4 +46,11 @@ class SiteController extends Controller
     {
         return view('site.contact');
     }
+
+    public function search(Request $request)
+    {
+        $products = Product::orderByDesc('id')->where('name', 'like', '%' . $request->q . '%')->paginate(3);
+
+        return view('site.search', compact('products'));
+    }
 }

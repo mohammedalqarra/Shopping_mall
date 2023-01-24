@@ -148,8 +148,10 @@
                                 data-hover="dropdown"><i class="tf-ion-ios-search-strong"></i> Search</a>
                             <ul class="dropdown-menu search-dropdown">
                                 <li>
-                                    <form action="post"><input type="search" class="form-control"
-                                            placeholder="Search..."></form>
+                                    <form action="{{ route('site.search') }}" method="GET"><input type="search"
+                                            class="form-control" placeholder="Search..." name="q"
+                                            value="{{ request()->q }}">
+                                    </form>
                                 </li>
                             </ul>
                         </li><!-- / Search -->
