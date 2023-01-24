@@ -20,4 +20,9 @@ class SiteController extends Controller
 
         return  view('site.index', compact('products_slider', 'categories', 'products_latest'));
     }
+
+    public function about()
+    {
+        return view('site.about');
+    }
 }

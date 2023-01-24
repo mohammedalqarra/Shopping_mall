@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             //
-            $table->string('slug')->after('name');
+            $table->string('slug')->unique()->after('name');
         });
     }
 
