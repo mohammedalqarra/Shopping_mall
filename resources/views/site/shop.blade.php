@@ -9,7 +9,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="content">
-                        <h1 class="page-name">Shop</h1>
+                        <h1 class="page-name">
+                            @if (isset($category))
+                                {{ $category->trans_name }}
+                            @else
+                                Shop
+                            @endif
+                        </h1>
                         <ol class="breadcrumb">
                             <li><a href="{{ route('site.index') }}">Home</a></li>
                             <li class="active">shop</li>

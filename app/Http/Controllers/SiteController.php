@@ -32,4 +32,13 @@ class SiteController extends Controller
 
         return view('site.shop', compact('products'));
     }
+
+    public function category($id)
+    {
+        $category = Category::FindOrFail($id);
+
+        $products = $category->product()->orderByDesc('id')->paginate(3);
+
+        return view('site.shop', compact('products', 'category'));
+    }
 }
