@@ -217,7 +217,7 @@
                             </ul>
                         </li><!-- / CATEGORIES -->
                         <li class="dropdown ">
-                            <a href="index.html">CONTACT</a>
+                            <a href="{{ route('site.contact') }}">CONTACT</a>
                         </li>
 
                     </ul><!-- / .nav .navbar-nav -->
@@ -257,7 +257,7 @@
                     </ul>
                     <ul class="footer-menu text-uppercase">
                         <li>
-                            <a href="contact.html">CONTACT</a>
+                            <a href="{{ route('site.contact') }}l">CONTACT</a>
                         </li>
                         <li>
                             <a href="shop.html">SHOP</a>
