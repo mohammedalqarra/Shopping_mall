@@ -85,7 +85,7 @@ class ProductController extends Controller
 
         // Insert To DataBase
 
-        $slugCount = Product::where('slug', Str::slug($request->name_en))->count();
+        $slugCount = Product::where('slug', 'like', '%' . Str::slug($request->name_en) . '%')->count();
 
         if ($slugCount) {
             $slug = Str::Slug($request->name_en) . '_' . $slugCount;
