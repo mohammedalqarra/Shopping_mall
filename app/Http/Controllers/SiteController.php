@@ -25,4 +25,11 @@ class SiteController extends Controller
     {
         return view('site.about');
     }
+
+    public function shop()
+    {
+        $products = Product::orderByDesc('id')->paginate(3);
+
+        return view('site.shop', compact('products'));
+    }
 }
