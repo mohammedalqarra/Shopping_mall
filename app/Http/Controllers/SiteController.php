@@ -53,4 +53,15 @@ class SiteController extends Controller
 
         return view('site.search', compact('products'));
     }
+
+    public function product($slug)
+    {
+        $product = Product::where('slug', $slug)->first();
+
+        if (!$product) {
+            abort(404);
+        }
+
+        return view('site.product', compact('product'));
+    }
 }
