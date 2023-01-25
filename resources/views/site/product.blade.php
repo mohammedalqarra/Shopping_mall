@@ -37,30 +37,15 @@
                                 <!-- me art lab slider -->
                                 <div class='carousel-inner '>
                                     <div class='item active'>
-                                        <img src='images/shop/single-products/product-1.jpg' alt=''
-                                            data-zoom-image="images/shop/single-products/product-1.jpg" />
+                                        <img src="{{ asset('uploads/products/' . $product->image) }}" alt=''
+                                            data-zoom-image="{{ asset('uploads/products/' . $product->image) }}" />
                                     </div>
-                                    <div class='item'>
-                                        <img src='images/shop/single-products/product-2.jpg' alt=''
-                                            data-zoom-image="images/shop/single-products/product-2.jpg" />
-                                    </div>
-
-                                    <div class='item'>
-                                        <img src='images/shop/single-products/product-3.jpg' alt=''
-                                            data-zoom-image="images/shop/single-products/product-3.jpg" />
-                                    </div>
-                                    <div class='item'>
-                                        <img src='images/shop/single-products/product-4.jpg' alt=''
-                                            data-zoom-image="images/shop/single-products/product-4.jpg" />
-                                    </div>
-                                    <div class='item'>
-                                        <img src='images/shop/single-products/product-5.jpg' alt=''
-                                            data-zoom-image="images/shop/single-products/product-5.jpg" />
-                                    </div>
-                                    <div class='item'>
-                                        <img src='images/shop/single-products/product-6.jpg' alt=''
-                                            data-zoom-image="images/shop/single-products/product-6.jpg" />
-                                    </div>
+                                    @foreach ($product->album as $image)
+                                        <div class='item'>
+                                            <img src="{{ asset('uploads/products/' . $image->path) }}" alt=''
+                                                data-zoom-image="{{ asset('uploads/products/' . $image->path) }}" />
+                                        </div>
+                                    @endforeach
 
                                 </div>
 
@@ -76,26 +61,15 @@
                             <!-- thumb -->
                             <ol class='carousel-indicators mCustomScrollbar meartlab'>
                                 <li data-target='#carousel-custom' data-slide-to='0' class='active'>
-                                    <img src='images/shop/single-products/product-1.jpg' alt='' />
+                                    <img src="{{ asset('uploads/products/' . $product->image) }}" alt='' />
                                 </li>
-                                <li data-target='#carousel-custom' data-slide-to='1'>
-                                    <img src='images/shop/single-products/product-2.jpg' alt='' />
-                                </li>
-                                <li data-target='#carousel-custom' data-slide-to='2'>
-                                    <img src='images/shop/single-products/product-3.jpg' alt='' />
-                                </li>
-                                <li data-target='#carousel-custom' data-slide-to='3'>
-                                    <img src='images/shop/single-products/product-4.jpg' alt='' />
-                                </li>
-                                <li data-target='#carousel-custom' data-slide-to='4'>
-                                    <img src='images/shop/single-products/product-5.jpg' alt='' />
-                                </li>
-                                <li data-target='#carousel-custom' data-slide-to='5'>
-                                    <img src='images/shop/single-products/product-6.jpg' alt='' />
-                                </li>
-                                <li data-target='#carousel-custom' data-slide-to='6'>
-                                    <img src='images/shop/single-products/product-7.jpg' alt='' />
-                                </li>
+
+                                @foreach ($product->album as $image)
+                                    <li data-target='#carousel-custom' data-slide-to='{{ $loop->iteration }}'>
+                                        <img src="{{ asset('uploads/products/' . $image->path) }}" alt='' />
+                                    </li>
+                                @endforeach
+
                             </ol>
                         </div>
                     </div>
