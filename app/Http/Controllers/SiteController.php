@@ -67,7 +67,9 @@ class SiteController extends Controller
         $next = Product::where('id', '>', $product->id)->first();
         $prev = Product::where('id', '<', $product->id)->orderByDesc('id')->first();
 
-        return view('site.product', compact('product', 'next', 'prev'));
+        $related = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->get();
+
+        return view('site.product', compact('product', 'next', 'prev', 'related'));
     }
 
     public function product_review(Request $request)
