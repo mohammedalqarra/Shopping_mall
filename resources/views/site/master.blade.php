@@ -48,6 +48,8 @@
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{{ asset('siteassets/css/style.css') }}">
 
+    @yield('styles')
+
 </head>
 
 <body id="body">

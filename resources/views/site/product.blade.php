@@ -2,6 +2,51 @@
 
 @section('title', $product->trans_name . ' | ' . config('app.name'));
 
+@section('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <style>
+        .star-rating {
+            font-size: 0;
+        }
+
+        .star-rating__wrap {
+            display: inline-block;
+            font-size: 1rem;
+        }
+
+        .star-rating__wrap:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .star-rating__ico {
+            float: right;
+            padding-left: 2px;
+            cursor: pointer;
+            color: #FFB300;
+        }
+
+        .star-rating__ico:last-child {
+            padding-left: 0;
+        }
+
+        .star-rating__input {
+            display: none;
+        }
+
+        .star-rating__ico:hover:before,
+        .star-rating__ico:hover~.star-rating__ico:before,
+        .star-rating__input:checked~.star-rating__ico:before {
+            content: "\f005";
+        }
+    </style>
+
+@stop
 
 @section('content')
 
@@ -76,7 +121,28 @@
                 </div>
                 <div class="col-md-7">
                     <div class="single-product-details">
+                        @php
+                            $rating = $product->reviews->avg('star');
+                        @endphp
+
                         <h2>{{ $product->trans_name }}</h2>
+                        <small>{{ $rating }} <i class="fa fa-star"></i> Based On
+                            {{ $product->reviews->count() }}</small>
+                        <br>
+                        @foreach (range(1, 5) as $i)
+                            <span class="fa-stack" style="width:1em">
+                                <i class="far fa-star fa-stack-1x"></i>
+
+                                @if ($rating > 0)
+                                    @if ($rating > 0.5)
+                                        <i class="fas fa-star fa-stack-1x"></i>
+                                    @else
+                                        <i class="fas fa-star-half fa-stack-1x"></i>
+                                    @endif
+                                @endif
+                                @php $rating--; @endphp
+                            </span>
+                        @endforeach
                         <p class="product-price">${{ $product->price }}</p>
 
                         <div class="product-description mt-20">
@@ -133,7 +199,7 @@
                             <li class="active"><a data-toggle="tab" href="#details" aria-expanded="true">Details</a>
                             </li>
                             <li class=""><a data-toggle="tab" href="#reviews" aria-expanded="false">Reviews
-                                    (3)</a></li>
+                                    ({{ $product->reviews->count() }})</a></li>
                         </ul>
                         <div class="tab-content patternbg">
                             <div id="details" class="tab-pane fade active in">
@@ -143,43 +209,78 @@
                             <div id="reviews" class="tab-pane fade">
                                 <div class="post-comments">
                                     <ul class="media-list comments-list m-bot-50 clearlist">
-                                        <!-- Comment Item start-->
-                                        <li class="media">
+                                        @foreach ($product->reviews as $review)
+                                            <!-- Comment Item start-->
+                                            <li class="media">
 
-                                            <a class="pull-left" href="#!">
-                                                <img class="media-object comment-avatar" src="images/blog/avater-1.jpg"
-                                                    alt="" width="50" height="50" />
-                                            </a>
+                                                <a class="pull-left" href="#!">
+                                                    <img class="media-object comment-avatar"
+                                                        src="https://ui-avatars.com/api/?name={{ $review->user->name }}"
+                                                        alt="" width="50" height="50" />
+                                                </a>
 
-                                            <div class="media-body">
-                                                <div class="comment-info">
-                                                    <h4 class="comment-author">
-                                                        <a href="#!">Jonathon Andrew</a>
+                                                <div class="media-body">
+                                                    <div class="comment-info">
+                                                        <h4 class="comment-author">
+                                                            <a href="#!">{{ $review->user->name }}</a>
 
-                                                    </h4>
-                                                    <time datetime="2013-04-06T13:53">July 02, 2015, at 11:34</time>
-                                                    <a class="comment-button" href="#!"><i
-                                                            class="tf-ion-chatbubbles"></i>Reply</a>
+                                                        </h4>
+                                                        <time
+                                                            datetime="{{ $review->created_at }}">{{ $review->created_at->format('F d, Y') }}
+                                                            , at {{ $review->created_at->format('h:i') }}</time>
+                                                        <a class="comment-button" href="#!"><i
+                                                                class="tf-ion-star"></i>{{ $review->star }}</a>
+                                                    </div>
+
+                                                    <p>
+                                                        {!! $review->comment !!}
+                                                    </p>
                                                 </div>
 
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at
-                                                    magna ut ante eleifend eleifend.Lorem ipsum dolor sit amet,
-                                                    consectetur adipisicing elit. Quod laborum minima, reprehenderit
-                                                    laboriosam officiis praesentium? Impedit minus provident assumenda
-                                                    quae.
-                                                </p>
-                                            </div>
-
-                                        </li>
-                                        <!-- End Comment Item -->
+                                            </li>
+                                            <!-- End Comment Item -->
+                                        @endforeach
                                     </ul>
                                 </div>
+                                <h3>Add New Comment</h3>
+                                <link rel="stylesheet"
+                                    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+                                <form action="{{ route('site.product_review', $product->slug) }}" method="post">
+                                    @csrf
+
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}"
+                                        class="star-rating">
+                                    <div class="star-rating__wrap">
+                                        <input class="star-rating__input" id="star-rating-5" type="radio"
+                                            name="rating" value="5">
+                                        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5"
+                                            title="5 out of 5 stars"></label>
+                                        <input class="star-rating__input" id="star-rating-4" type="radio"
+                                            name="rating" value="4">
+                                        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4"
+                                            title="4 out of 5 stars"></label>
+                                        <input class="star-rating__input" id="star-rating-3" type="radio"
+                                            name="rating" value="3">
+                                        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3"
+                                            title="3 out of 5 stars"></label>
+                                        <input class="star-rating__input" id="star-rating-2" type="radio"
+                                            name="rating" value="2">
+                                        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2"
+                                            title="2 out of 5 stars"></label>
+                                        <input class="star-rating__input" id="star-rating-1" type="radio"
+                                            name="rating" value="1">
+                                        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1"
+                                            title="1 out of 5 stars"></label>
+                                    </div>
+                                    <textarea placeholder="Comment..." name="comment" class="form-control" rows="5"></textarea>
+                                    <button class="btn btn-main mt-20">Post Review</button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
     <section class="products related-products section">

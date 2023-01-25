@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\review;
 use App\Models\product;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SiteController extends Controller
 {
@@ -66,5 +68,17 @@ class SiteController extends Controller
         $prev = Product::where('id', '<', $product->id)->orderByDesc('id')->first();
 
         return view('site.product', compact('product', 'next', 'prev'));
+    }
+
+    public function product_review(Request $request)
+    {
+        review::create([
+            'comment' => $request->comment,
+            'star' => $request->rating,
+            'product_id' => $request->product_id,
+            'user_id'  => Auth::id(),
+        ]);
+
+        return redirect()->back();
     }
 }
