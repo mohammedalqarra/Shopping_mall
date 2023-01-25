@@ -11,9 +11,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <ol class="breadcrumb">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="shop.html">Shop</a></li>
-                        <li class="active">Single Product</li>
+                        <li><a href="{{ route('site.index') }}">Home</a></li>
+                        <li><a href="{{ route('site.shop') }}">Shop</a></li>
+                        <li class="active">{{ $product->trans_name }}</li>
                     </ol>
                 </div>
                 <div class="col-md-6">
