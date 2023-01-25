@@ -62,6 +62,9 @@ class SiteController extends Controller
             abort(404);
         }
 
-        return view('site.product', compact('product'));
+        $next = Product::where('id', '>', $product->id)->first();
+        $prev = Product::where('id', '<', $product->id)->orderByDesc('id')->first();
+
+        return view('site.product', compact('product', 'next', 'prev'));
     }
 }

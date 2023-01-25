@@ -18,8 +18,14 @@
                 </div>
                 <div class="col-md-6">
                     <ol class="product-pagination text-right">
-                        <li><a href="blog-left-sidebar.html"><i class="tf-ion-ios-arrow-left"></i> Next </a></li>
-                        <li><a href="blog-left-sidebar.html">Preview <i class="tf-ion-ios-arrow-right"></i></a></li>
+                        @if ($next)
+                            <li><a href="{{ route('site.product', $next->slug) }} "><i class="tf-ion-ios-arrow-left"></i>
+                                    Next </a></li>
+                        @endif
+                        @if ($prev)
+                            <li><a href="{{ route('site.product', $prev->slug) }}">prev <i
+                                        class="tf-ion-ios-arrow-right"></i></a></li>
+                        @endif
                     </ol>
                 </div>
             </div>
