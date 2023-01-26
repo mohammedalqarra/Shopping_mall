@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\cart;
 use App\Models\review;
 use App\Models\product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class SiteController extends Controller
@@ -58,6 +60,8 @@ class SiteController extends Controller
 
     public function product($slug)
     {
+
+
         $product = Product::where('slug', $slug)->first();
 
         if (!$product) {
@@ -74,6 +78,7 @@ class SiteController extends Controller
 
     public function product_review(Request $request)
     {
+        // dd($request->all);
         review::create([
             'comment' => $request->comment,
             'star' => $request->rating,
@@ -83,4 +88,7 @@ class SiteController extends Controller
 
         return redirect()->back();
     }
+
+    //
+
 }

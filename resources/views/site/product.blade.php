@@ -1,12 +1,11 @@
 @extends('site.master')
 
-@section('title', $product->trans_name . ' | ' . config('app.name'));
+@section('title', $product->trans_name . ' | ' . config('app.name'))
 
 @section('styles')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 
     <style>
         .star-rating {
@@ -45,12 +44,11 @@
             content: "\f005";
         }
     </style>
-
 @stop
 
 @section('content')
 
-
+    {{-- @dump($product->album->first()) --}}
     <section class="single-product">
         <div class="container">
             <div class="row">
@@ -64,13 +62,15 @@
                 <div class="col-md-6">
                     <ol class="product-pagination text-right">
                         @if ($next)
-                            <li><a href="{{ route('site.product', $next->slug) }} "><i class="tf-ion-ios-arrow-left"></i>
+                            <li><a href="{{ route('site.product', $next->slug) }}"><i class="tf-ion-ios-arrow-left"></i>
                                     Next </a></li>
                         @endif
+
                         @if ($prev)
-                            <li><a href="{{ route('site.product', $prev->slug) }}">prev <i
+                            <li><a href="{{ route('site.product', $prev->slug) }}">Preview <i
                                         class="tf-ion-ios-arrow-right"></i></a></li>
                         @endif
+
                     </ol>
                 </div>
             </div>
@@ -85,9 +85,10 @@
                                         <img src="{{ asset('uploads/products/' . $product->image) }}" alt=''
                                             data-zoom-image="{{ asset('uploads/products/' . $product->image) }}" />
                                     </div>
+
                                     @foreach ($product->album as $image)
                                         <div class='item'>
-                                            <img src="{{ asset('uploads/products/' . $image->path) }}" alt=''
+                                            <img src='{{ asset('uploads/products/' . $image->path) }}' alt=''
                                                 data-zoom-image="{{ asset('uploads/products/' . $image->path) }}" />
                                         </div>
                                     @endforeach
@@ -106,12 +107,12 @@
                             <!-- thumb -->
                             <ol class='carousel-indicators mCustomScrollbar meartlab'>
                                 <li data-target='#carousel-custom' data-slide-to='0' class='active'>
-                                    <img src="{{ asset('uploads/products/' . $product->image) }}" alt='' />
+                                    <img src='{{ asset('uploads/products/' . $product->image) }}' alt='' />
                                 </li>
 
                                 @foreach ($product->album as $image)
                                     <li data-target='#carousel-custom' data-slide-to='{{ $loop->iteration }}'>
-                                        <img src="{{ asset('uploads/products/' . $image->path) }}" alt='' />
+                                        <img src='{{ asset('uploads/products/' . $image->path) }}' alt='' />
                                     </li>
                                 @endforeach
 
@@ -120,15 +121,22 @@
                     </div>
                 </div>
                 <div class="col-md-7">
+                    @if (session('msg'))
+                        <div class="alert alert-success">
+                            {{ session('msg') }}
+                        </div>
+                    @endif
                     <div class="single-product-details">
                         @php
                             $rating = $product->reviews->avg('star');
                         @endphp
 
                         <h2>{{ $product->trans_name }}</h2>
-                        <small>{{ $rating }} <i class="fa fa-star"></i> Based On
+                        <small>{{ $rating }} <i class="tf-ion-star"></i> Based On
                             {{ $product->reviews->count() }}</small>
+
                         <br>
+
                         @foreach (range(1, 5) as $i)
                             <span class="fa-stack" style="width:1em">
                                 <i class="far fa-star fa-stack-1x"></i>
@@ -146,49 +154,51 @@
                         <p class="product-price">${{ $product->price }}</p>
 
                         <div class="product-description mt-20">
-                            {{-- {!! $product->trans_content !!} --}}
                             {!! Str::words($product->trans_content, 20, '...') !!}
                         </div>
-
-                        <div class="color-swatches">
-                            <span>color:</span>
-                            <ul>
-                                <li>
-                                    <a href="#!" class="swatch-violet"></a>
-                                </li>
-                                <li>
-                                    <a href="#!" class="swatch-black"></a>
-                                </li>
-                                <li>
-                                    <a href="#!" class="swatch-cream"></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product-size">
-                            <span>Size:</span>
-                            <select class="form-control">
-                                <option>S</option>
-                                <option>M</option>
-                                <option>L</option>
-                                <option>XL</option>
-                            </select>
-                        </div>
-                        <div class="product-quantity">
-                            <span>Quantity:</span>
-                            <div class="product-quantity-slider">
-                                <input id="product-quantity" type="text" value="1" name="product-quantity">
+                        {{-- <div class="color-swatches">
+						<span>color:</span>
+						<ul>
+							<li>
+								<a href="#!" class="swatch-violet"></a>
+							</li>
+							<li>
+								<a href="#!" class="swatch-black"></a>
+							</li>
+							<li>
+								<a href="#!" class="swatch-cream"></a>
+							</li>
+						</ul>
+					</div>
+					<div class="product-size">
+						<span>Size:</span>
+						<select class="form-control">
+							<option>S</option>
+							<option>M</option>
+							<option>L</option>
+							<option>XL</option>
+						</select>
+					</div> --}}
+                        <form action="{{ route('site.add_to_cart') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <div class="product-quantity">
+                                <span>Quantity:</span>
+                                <div class="product-quantity-slider">
+                                    <input id="product-quantity" type="text" value="1" name="quantity">
+                                </div>
                             </div>
-                        </div>
-                        <div class="product-category">
-                            <span>Categories:</span>
-                            <ul>
-                                <li><a
-                                        href="{{ route('site.category', $product->category_id) }}">{{ $product->category->trans_name }}</a>
-                                </li>
+                            <div class="product-category">
+                                <span>Categories:</span>
+                                <ul>
+                                    <li><a
+                                            href="{{ route('site.category', $product->category_id) }}">{{ $product->category->trans_name }}</a>
+                                    </li>
 
-                            </ul>
-                        </div>
-                        <a href="cart.html" class="btn btn-main mt-20">Add To Cart</a>
+                                </ul>
+                            </div>
+                            <button class="btn btn-main mt-20">Add To Cart</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -196,8 +206,7 @@
                 <div class="col-xs-12">
                     <div class="tabCommon mt-20">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#details" aria-expanded="true">Details</a>
-                            </li>
+                            <li class="active"><a data-toggle="tab" href="#details" aria-expanded="true">Details</a></li>
                             <li class=""><a data-toggle="tab" href="#reviews" aria-expanded="false">Reviews
                                     ({{ $product->reviews->count() }})</a></li>
                         </ul>
@@ -210,7 +219,7 @@
                                 <div class="post-comments">
                                     <ul class="media-list comments-list m-bot-50 clearlist">
                                         @foreach ($product->reviews as $review)
-                                            <!-- Comment Item start-->
+                                            <!-- Comment review start-->
                                             <li class="media">
 
                                                 <a class="pull-left" href="#!">
@@ -225,54 +234,58 @@
                                                             <a href="#!">{{ $review->user->name }}</a>
 
                                                         </h4>
-                                                        <time
-                                                            datetime="{{ $review->created_at }}">{{ $review->created_at->format('F d, Y') }}
-                                                            , at {{ $review->created_at->format('h:i') }}</time>
+                                                        <time datetime="{{ $review->created_at }}">
+                                                            {{ $review->created_at->format('F d, Y') }}, at
+                                                            {{ $review->created_at->format('h:i') }}
+                                                        </time>
                                                         <a class="comment-button" href="#!"><i
                                                                 class="tf-ion-star"></i>{{ $review->star }}</a>
                                                     </div>
 
                                                     <p>
-                                                        {!! $review->comment !!}
+                                                        {{ $review->comment }}
                                                     </p>
                                                 </div>
 
                                             </li>
-                                            <!-- End Comment Item -->
+                                            <!-- End Comment review -->
                                         @endforeach
+
+
                                     </ul>
                                 </div>
-                                <h3>Add New Comment</h3>
+                                <h3>Add New Review</h3>
                                 <link rel="stylesheet"
                                     href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-                                <form action="{{ route('site.product_review', $product->slug) }}" method="post">
+                                <form method="post" action="{{ route('site.product_review', $product->slug) }}">
                                     @csrf
-
-                                    <input type="hidden" name="product_id" value="{{ $product->id }}"
-                                        class="star-rating">
-                                    <div class="star-rating__wrap">
-                                        <input class="star-rating__input" id="star-rating-5" type="radio"
-                                            name="rating" value="5">
-                                        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5"
-                                            title="5 out of 5 stars"></label>
-                                        <input class="star-rating__input" id="star-rating-4" type="radio"
-                                            name="rating" value="4">
-                                        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4"
-                                            title="4 out of 5 stars"></label>
-                                        <input class="star-rating__input" id="star-rating-3" type="radio"
-                                            name="rating" value="3">
-                                        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3"
-                                            title="3 out of 5 stars"></label>
-                                        <input class="star-rating__input" id="star-rating-2" type="radio"
-                                            name="rating" value="2">
-                                        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2"
-                                            title="2 out of 5 stars"></label>
-                                        <input class="star-rating__input" id="star-rating-1" type="radio"
-                                            name="rating" value="1">
-                                        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1"
-                                            title="1 out of 5 stars"></label>
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <div class="star-rating">
+                                        <div class="star-rating__wrap">
+                                            <input class="star-rating__input" id="star-rating-5" type="radio"
+                                                name="rating" value="5">
+                                            <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5"
+                                                title="5 out of 5 stars"></label>
+                                            <input class="star-rating__input" id="star-rating-4" type="radio"
+                                                name="rating" value="4">
+                                            <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4"
+                                                title="4 out of 5 stars"></label>
+                                            <input class="star-rating__input" id="star-rating-3" type="radio"
+                                                name="rating" value="3">
+                                            <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3"
+                                                title="3 out of 5 stars"></label>
+                                            <input class="star-rating__input" id="star-rating-2" type="radio"
+                                                name="rating" value="2">
+                                            <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2"
+                                                title="2 out of 5 stars"></label>
+                                            <input class="star-rating__input" id="star-rating-1" type="radio"
+                                                name="rating" value="1">
+                                            <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1"
+                                                title="1 out of 5 stars"></label>
+                                        </div>
                                     </div>
-                                    <textarea placeholder="Comment..." name="comment" class="form-control" rows="5"></textarea>
+                                    <textarea name="comment" class="form-control" placeholder="Comment" rows="4"></textarea>
+
                                     <button class="btn btn-main mt-20">Post Review</button>
                                 </form>
                             </div>
@@ -280,7 +293,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </section>
     <section class="products related-products section">
@@ -297,11 +309,7 @@
                     </div>
                 @endforeach
 
-
-
             </div>
         </div>
     </section>
-
-
 @stop
