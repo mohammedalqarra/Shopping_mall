@@ -140,4 +140,16 @@ class CartController extends Controller
         // redirect to fail page
      }
     }
+
+    public function success()
+    {
+        return view('site.success');
+    }
+
+
+    public function fail()
+    {
+        return view('site.fail');
+    }
+
 }
