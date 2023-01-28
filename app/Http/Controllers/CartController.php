@@ -67,6 +67,10 @@ class CartController extends Controller
     public function checkout()
     {
         $total = Auth::user()->carts()->sum(DB::raw('price * quantity'));
+
+        if($total == 0){
+            return redirect()->route('site.shop');
+        }
         $url = "https://eu-test.oppwa.com/v1/checkouts";
             $data = "entityId=8a8294174b7ecb28014b9699220015ca" .
                         "&amount=$total" .
@@ -132,12 +136,18 @@ class CartController extends Controller
         //create new  payment amount
 
         // redirect to success  page
-        echo 'Done';
+
+        return redirect()->route('site.success');
+
+        //echo 'Done';
      }else {
 
-        echo 'Error';
+       // echo 'Error';
 
         // redirect to fail page
+
+        return redirect()->route('site.fail');
+
      }
     }
 
