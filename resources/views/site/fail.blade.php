@@ -1,6 +1,6 @@
 @extends('site.master')
 
-@section('title', 'success proccess | ' . config('app.name'))
+@section('title', 'faileld proccess | ' . config('app.name'))
 
 @section('content')
 <div class="page-wrapper">
@@ -9,8 +9,8 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="block">
-                        <div class="alert alert-success">
-                            <p>Payment proccess done successfully</p>
+                        <div class="alert alert-danger">
+                            <p>Payment proccess  faileld</p>
                         </div>
                     </div>
                 </div>
