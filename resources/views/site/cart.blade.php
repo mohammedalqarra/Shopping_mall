@@ -56,7 +56,7 @@
                                                 <td class=""><input type="number"  value="{{ $cart->quantity }}" name="qyt[{{ $cart->product_id }}]" style="width:50px"></td>
                                                 <td class="">${{ $cart->price * $cart->quantity }}</td>
                                                 <td class="">
-                                                    <a  onclick=" return confirm('Are you sure?!')" class="product-remove" href="{{ route('site.remove_cart' , $cart->id) }}">Remove</a>
+                                                    <a   class="product-remove btn-delete" href="{{ route('site.remove_cart' , $cart->id) }}">Remove</a>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -72,5 +72,31 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 
+    <script>
+        $('.btn-delete').on('click', function() {
+
+            let form = $(this).next('form');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        });
+    </script>
 @stop
