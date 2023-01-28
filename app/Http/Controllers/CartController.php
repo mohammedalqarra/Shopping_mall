@@ -39,4 +39,29 @@ class CartController extends Controller
 
         return redirect()->back()->with('msg', 'product added to cart successfully');
     }
+
+    public function cart()
+    {
+        return view('site.cart');
+    }
+
+    public function update_cart(Request $request)
+    {
+      // dd($request->all());
+
+        foreach($request->qyt as $product_id => $new_qyt) {
+        cart::where('product_id', $product_id)
+            ->where('user_id', Auth::id())
+            ->update(['quantity' => $new_qyt]);
+    }
+        return redirect()->back();
+    }
+
+    public function remove_cart($id)
+    {
+        cart::destroy($id);
+
+        return redirect()->back();
+    }
+
 }

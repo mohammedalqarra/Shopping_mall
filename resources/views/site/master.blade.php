@@ -119,7 +119,7 @@
                                                 </div>
                                                 <h5><strong>${{ $cart->quantity * $cart->price }}</strong></h5>
                                             </div>
-                                            <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
+                                            <a href="{{ route('site.remove_cart' , $cart->id) }}" class="remove"><i class="tf-ion-close"></i></a>
                                         </div><!-- / Cart Item -->
                                         @php
                                             $total += $cart->quantity * $cart->price;
@@ -132,8 +132,8 @@
                                     <span class="total-price">${{ number_format($total, 2) }}</span>
                                 </div>
                                 <ul class="text-center cart-buttons">
-                                    <li><a href="cart.html" class="btn btn-small">View Cart</a></li>
-                                    <li><a href="checkout.html" class="btn btn-small btn-solid-border">Checkout</a>
+                                    <li><a href="{{ route('site.cart') }}" class="btn btn-small">View Cart</a></li>
+                                    <li><a href="{{ route('site.checkout') }}" class="btn btn-small btn-solid-border">Checkout</a>
                                     </li>
                                 </ul>
                             </div>
