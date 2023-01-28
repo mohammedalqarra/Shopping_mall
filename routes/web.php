@@ -75,6 +75,7 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
     Route::get('/cart', [CartController::class, 'cart'])->name('site.cart')->middleware('auth'); //لازم الشخص يكون مسجل دخول عشان يفوت الصفحة هاي
     Route::post('/update-cart', [CartController::class, 'update_cart'])->name('site.update_cart')->middleware('auth');
     Route::get('/cart/{id}', [CartController::class, 'remove_cart'])->name('site.remove_cart')->middleware('auth');
-    Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('site.checkout')->middleware('auth');
+    Route::get('/checkout', [CartController::class, 'checkout'])->name('site.checkout')->middleware('auth');
+    Route::get('/payment', [CartController::class, 'payment'])->name('site.payment')->middleware('auth');
 
 });

@@ -63,7 +63,7 @@
                                         </tbody>
                                     </table>
                                     <button class="btn btn-solid-border"> Update Cart</button>
-                                    <a href="checkout.html" class="btn btn-main pull-right">Checkout</a>
+                                    <a href="{{ route('site.checkout') }}" class="btn btn-main pull-right">Checkout</a>
                                 </form>
                             </div>
                         </div>
