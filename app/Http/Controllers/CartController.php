@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\cart;
+use App\Models\order;
+use App\Models\OrderItem;
+use App\Models\Payment;
 use App\Models\product;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -123,17 +127,52 @@ class CartController extends Controller
      $code = $responseData['result']['code'];
 
 
-     if($code == "000.100.110"){
+     if($code == '000.100.110'){
         $amount = $responseData['amount'];
-        $trasnaction_id = $responseData['id'];
+        $transaction_id = $responseData['id'];
+         DB::beginTransaction();
 
-        // create new order
+        try{
+            // create new order
 
-        // add carts to order items
+            $order = order::create([
+                'total' => $amount,
+                'user_id' => Auth::id(),
+            ]);
+            // add carts to order items
 
-        //decrease the product quantity
+            foreach(Auth::user()->carts as $cart){
+                OrderItem::create([
+                    'price' => $cart->price,
+                    'quantity' => $cart->quantity,
+                    'user_id' => $cart->user_id,
+                    'product_id' => $cart->product_id,
+                    'order_id' => $order->id
+                ]);
+                //decrease the product quantity
+                $cart->product()->decrement('quantity' , $cart->quantity);
 
-        //create new  payment amount
+                // delete user cart
+                $cart->delete();
+
+            }
+            //create new  payment amount
+
+            Payment::create([
+                'total' => $amount,
+                'user_id' => Auth::id(),
+                'order_id' => $order->id,
+                'transaction_id' => $transaction_id,
+            ]);
+
+            DB::commit();
+        }catch(Exception $e){
+
+            DB::rollBack();
+            throw new Exception($e->getMessage());
+        }
+
+
 
         // redirect to success  page
 
