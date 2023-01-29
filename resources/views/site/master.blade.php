@@ -307,7 +307,7 @@
     <script src="{{ asset('siteassets/js/script.js') }}"></script>
 
 
-
+@yield('scripts')
 </body>
 
 </html>

@@ -19,3 +19,11 @@
     </div>
 </div>
 @stop
+
+@section('scripts')
+<script>
+    setTimeout(() => {
+        windoe.location.href = '/';
+    }, 3000);
+</script>
+@stop
