@@ -1,9 +1,12 @@
 <?php
 
+use App\Mail\InvoiceMail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\SiteController;
+use App\Notifications\NewOrderNotification;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProductController;
@@ -81,3 +84,16 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
     Route::get('/payment/fail', [CartController::class, 'fail'])->name('site.fail')->middleware('auth');
 
 });
+
+// Don't Do This Just For Test Only
+
+Route::get('send-notification' , function (){
+
+    $user = Auth::user();
+
+    Mail::to($user->email)->send(new InvoiceMail());
+   // $user->notify(new NewOrderNotification());
+
+
+});
+

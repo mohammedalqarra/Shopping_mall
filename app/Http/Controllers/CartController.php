@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\cart;
 use App\Models\order;
-use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\product;
-use Exception;
+use App\Mail\InvoiceMail;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CartController extends Controller
 {
@@ -172,7 +174,9 @@ class CartController extends Controller
             throw new Exception($e->getMessage());
         }
 
+        // send Invoice
 
+        Mail::to(Auth()->user()->email)->send(new InvoiceMail());
 
         // redirect to success  page
 
