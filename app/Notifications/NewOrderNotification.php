@@ -49,7 +49,7 @@ class NewOrderNotification extends Notification
                    // ->line('Thank you for using our application!');
 
 
-                   return Mail::to($notifiable->email)->send(new InvoiceMail());
+                 Mail::to($notifiable->email)->send(new InvoiceMail());
 
     }
 

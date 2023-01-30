@@ -1,6 +1,8 @@
 <?php
 
 use App\Mail\InvoiceMail;
+
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -89,11 +91,20 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
 
 Route::get('send-notification' , function (){
 
-    $user = Auth::user();
+   // $user = Auth::user();
 
-    Mail::to($user->email)->send(new InvoiceMail());
+   // Mail::to($user->email)->send(new InvoiceMail());
    // $user->notify(new NewOrderNotification());
+
 
 
 });
 
+
+
+Route::get('invoice' , function (){
+
+      //  return view('pdf.invoice');
+        $pdf = Pdf::loadView('pdf.invoice');
+        $pdf->save('invoice/latest.pdf');
+});
