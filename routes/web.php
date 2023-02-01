@@ -91,7 +91,8 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
 
 Route::get('send-notification' , function (){
 
-   // $user = Auth::user();
+    $user = Auth::user();
+  //  Mail::to($user->email)->send(new InvoiceMail());
 
    // Mail::to($user->email)->send(new InvoiceMail());
    // $user->notify(new NewOrderNotification());

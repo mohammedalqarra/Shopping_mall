@@ -48,8 +48,9 @@ class NewOrderNotification extends Notification
                    // ->action('Notification Action', url('/'))
                    // ->line('Thank you for using our application!');
 
+                 //  return new InvoiceMail();
 
-                 Mail::to($notifiable->email)->send(new InvoiceMail());
+               //  Mail::to($notifiable->email)->send(new InvoiceMail());
 
     }
 
