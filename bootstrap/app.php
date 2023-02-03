@@ -15,6 +15,12 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
+
+// $app = new Illuminate\Foundation\Application(
+//     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__),
+//     dirname(__DIR__) . DIRECTORY_SEPARATOR . 'envfolder'
+// );
+
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces
