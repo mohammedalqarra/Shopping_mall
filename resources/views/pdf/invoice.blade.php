@@ -38,6 +38,7 @@
             <div class="span4">
                 {{-- <img src="http://webivorous.com/wp-content/uploads/2020/06/brand-logo-webivorous.png" class="img-rounded logo"> --}}
                 {{-- {!! QrCode::format('png')->size(100)->generate('Mohammed'); !!} --}}
+                <img src="data:image/png;base64, {{ base64_encode( QrCode::format('png')->size(100)->generate('Mohammed')) }} />
                 <address>
                     <strong>Webivorous Web services Pvt. Ltd.</strong><br>
 
