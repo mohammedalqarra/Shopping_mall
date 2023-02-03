@@ -105,10 +105,12 @@ Route::get('send-notification' , function (){
 
 
 Route::get('invoice1', function (){
-     return view('pdf.invoice');
+  //   return view('pdf.invoice');
 
-    //   $pdf = Pdf::loadView('pdf.invoice');
+        $order = order::find(2);
 
-    //    $pdf->save('invoice/latest.pdf');
+        $pdf = Pdf::loadView('pdf.invoice' , ['order' => $order]);
+
+        $pdf->save('invoice/latest.pdf');
 
 });
